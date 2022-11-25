@@ -1,0 +1,1 @@
+LOCALE = 'uk_UA'
