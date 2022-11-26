@@ -1,9 +1,4 @@
 import calendar
-import locale
-
-from configs import LOCALE
-
-locale.setlocale(locale.LC_ALL, LOCALE)
 
 class Schedule:
     def __init__(self, group, path):
