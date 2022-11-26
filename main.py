@@ -12,9 +12,7 @@ SCHEDULE_PATH = './schedules/KM-23.txt'
 API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
-x1 = locale.getdefaultlocale()
-print(x1)
-locale.setlocale(locale.LC_ALL, x1)
+# locale.setlocale(locale.LC_ALL, LOCALE)
 
 @bot.message_handler(commands=['help'])
 def show_help(message):
