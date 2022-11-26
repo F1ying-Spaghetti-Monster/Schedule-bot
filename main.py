@@ -6,14 +6,12 @@ import locale
 from get_time import day_of_week, tomorrow, get_week
 from schedule import Schedule
 from markup import get_markup
-from configs import LOCALE
 
-# SCHEDULE_PATH = '/Users/zoidberg/Desktop/python-journey/telega-bot/schedules/KM-23.txt'
 SCHEDULE_PATH = './schedules/KM-23.txt'
 API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
-locale.setlocale(locale.LC_ALL, LOCALE)
+locale.setlocale(locale.LC_ALL, 'uk_UA')
 
 @bot.message_handler(commands=['help'])
 def show_help(message):
