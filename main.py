@@ -13,7 +13,7 @@ API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
 
-# locale.setlocale(locale.LC_ALL, LOCALE)
+locale.setlocale(locale.LC_ALL, LOCALE)
 
 @bot.message_handler(commands=['help'])
 def show_help(message):
