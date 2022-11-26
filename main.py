@@ -8,7 +8,8 @@ from schedule import Schedule
 from markup import get_markup
 from configs import LOCALE
 
-SCHEDULE_PATH = '/Users/zoidberg/Desktop/python-journey/telega-bot/schedules/KM-23.txt'
+# SCHEDULE_PATH = '/Users/zoidberg/Desktop/python-journey/telega-bot/schedules/KM-23.txt'
+SCHEDULE_PATH = './schedules/KM-23.txt'
 API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
