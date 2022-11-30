@@ -1,5 +1,6 @@
 import telebot
 import os
+import locale
 
 from get_time import day_of_week, tomorrow, get_week
 from schedule import Schedule
@@ -11,6 +12,11 @@ API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
 
+locale.setlocale(locale.LC_ALL, 'uk_UA')
+@bot.message_handler(commands=['start'])
+def show_help(message):
+    markup = get_markup()
+    bot.send_message(message.chat.id, 'Я бета версія бота, який вміє кидати розклад. Будь-який фідбек вітається!', reply_markup=markup)
 
 @bot.message_handler(commands=['help'])
 def show_help(message):
