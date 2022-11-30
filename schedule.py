@@ -1,4 +1,5 @@
 import calendar
+from configs import LOCALE
 
 class Schedule:
     def __init__(self, group, path):
@@ -11,20 +12,22 @@ class Schedule:
                     self.lessons.append(Lesson(*i.split('|')))
 
     def output(self, day=None, week=0):
-        str1 = ''
-        if day != None:
-            str1 += calendar.day_name[day].capitalize() + ':\n'
-            for i in self.lessons:
-                if i.day == day and i.week == week:
-                    str1 += i.output()
-        else:
-            for i in range(5):
-                str1 += self.output(i, week) + '\n'
-            if self.output(5, week) != calendar.day_name[5].capitalize() + ':\n':
-                str1 += self.output(5, week) + '\n'
-            if self.output(6, week) != calendar.day_name[6].capitalize() + ':\n':
-                str1 += self.output(6, week)
-        return str1
+        with calendar.different_locale(LOCALE):
+            str1 = ''
+            if day != None:
+                str1 += calendar.day_name[day].capitalize() + ':\n'
+                for i in self.lessons:
+                    if i.day == day and i.week == week:
+                        str1 += i.output()
+            else:
+                for i in range(5):
+                    str1 += self.output(i, week) + '\n'
+                str1 = str1[:-1]
+                if self.output(5, week).count('\n') > 1:
+                    str1 += '\n' + self.output(5, week)
+                if self.output(6, week).count('\n') > 1:
+                    str1 += '\n' + self.output(6, week)
+            return str1
 
 
 class Lesson:

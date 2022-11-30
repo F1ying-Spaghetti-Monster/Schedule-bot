@@ -1,19 +1,16 @@
 import telebot
 import os
-import calendar
-import locale
 
 from get_time import day_of_week, tomorrow, get_week
 from schedule import Schedule
 from markup import get_markup
-from configs import LOCALE
+from localization import local_day_abbr
 
 SCHEDULE_PATH = './schedules/KM-23.txt'
 API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
 
-locale.setlocale(locale.LC_ALL, LOCALE)
 
 @bot.message_handler(commands=['help'])
 def show_help(message):
@@ -32,9 +29,9 @@ def show_tomorrow(message):
 # def show_day(message):
 #     bot.send_message(message.chat.id, sched.output(message.text, get_week()), 'MarkdownV2', disable_web_page_preview=True)
 
-@bot.message_handler(func=lambda i: i.text.lower() in set(calendar.day_abbr))
+@bot.message_handler(func=lambda i: i.text.lower() in local_day_abbr())
 def show_day(message):
-    date = list.index(list(calendar.day_abbr), message.text.lower())
+    date = list.index(local_day_abbr(), message.text.lower())
     if date < day_of_week():
         bot.send_message(message.chat.id, sched.output(date, (get_week()+1)%2), 'MarkdownV2', disable_web_page_preview=True)
     else:
