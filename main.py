@@ -6,13 +6,14 @@ from get_time import day_of_week, tomorrow, get_week
 from schedule import Schedule
 from markup import get_markup
 from localization import local_day_abbr
+from configs import LOCALE
 
 SCHEDULE_PATH = './schedules/KM-23.txt'
 API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
 
-locale.setlocale(locale.LC_ALL, 'uk_UA.UTF-8')
+locale.setlocale(locale.LC_ALL, LOCALE)
 @bot.message_handler(commands=['start'])
 def show_help(message):
     markup = get_markup()
