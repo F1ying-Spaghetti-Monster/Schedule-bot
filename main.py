@@ -12,7 +12,7 @@ API_KEY = os.environ.get('API_KEY')
 bot = telebot.TeleBot(API_KEY)
 sched = Schedule(23, SCHEDULE_PATH)
 
-locale.setlocale(locale.LC_ALL, 'uk_UA')
+locale.setlocale(locale.LC_ALL, 'uk_UA.UTF-8')
 @bot.message_handler(commands=['start'])
 def show_help(message):
     markup = get_markup()
