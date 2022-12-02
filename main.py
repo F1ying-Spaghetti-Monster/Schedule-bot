@@ -38,9 +38,11 @@ def show_day(message):
     else:
         bot.send_message(message.chat.id, sched.output(date, get_week()), 'MarkdownV2', disable_web_page_preview=True)
 
-@bot.message_handler(regexp=r'^Next week$|^Наст. тиждень$')
-def show_next_week(message):
-    bot.send_message(message.chat.id, sched.output(week=get_week()), 'MarkdownV2', disable_web_page_preview=True)
-
+@bot.message_handler(regexp=r'^Full week$|^Повний тиждень$')
+def show_week(message):
+    if day_of_week() in range(5, 7):
+        bot.send_message(message.chat.id, 'Наступний тиждень:\n' + sched.output(week=(get_week() + 1) %2), 'MarkdownV2', disable_web_page_preview=True)
+    else:
+        bot.send_message(message.chat.id, 'Залишок цього тижня:\n' + sched.output(week=get_week()), 'MarkdownV2', disable_web_page_preview=True)
 
 bot.polling()

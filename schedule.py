@@ -1,5 +1,5 @@
-import calendar
 from localization import local_day_list
+from get_time import day_of_week
 
 class Schedule:
     def __init__(self, group, path):
@@ -19,13 +19,23 @@ class Schedule:
                 if i.day == day and i.week == week:
                     str1 += i.output()
         else:
-            for i in range(5):
-                str1 += self.output(i, week) + '\n'
-            str1 = str1[:-1]
-            if self.output(5, week).count('\n') > 1:
-                str1 += '\n' + self.output(5, week)
-            if self.output(6, week).count('\n') > 1:
-                str1 += '\n' + self.output(6, week)
+            cur_day = day_of_week()
+            if cur_day in range(5, 7):
+                for i in range(5):
+                    str1 += self.output(i, week) + '\n'
+                str1 = str1[:-1]
+                if self.output(5, week).count('\n') > 1:
+                    str1 += '\n' + self.output(5, week)
+                if self.output(6, week).count('\n') > 1:
+                    str1 += '\n' + self.output(6, week)
+            else:
+                for i in range(cur_day, 5):
+                    str1 += self.output(i, week) + '\n'
+                str1 = str1[:-1]
+                if self.output(5, week).count('\n') > 1:
+                    str1 += '\n' + self.output(5, week)
+                if self.output(6, week).count('\n') > 1:
+                    str1 += '\n' + self.output(6, week)
         return str1
 
 

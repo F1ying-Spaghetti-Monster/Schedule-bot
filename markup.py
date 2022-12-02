@@ -12,7 +12,7 @@ def get_markup():
         fri_btn = types.KeyboardButton('Пт')
         today_btn = types.KeyboardButton('Сьогодні')
         tomorrow_btn = types.KeyboardButton('Завтра')
-        nxt_week_btn = types.KeyboardButton('Наст. тиждень')
+        nxt_week_btn = types.KeyboardButton('Повний тиждень')
     else:
         mon_btn = types.KeyboardButton('Monday')
         tue_btn = types.KeyboardButton('Tuesday')
@@ -21,7 +21,7 @@ def get_markup():
         fri_btn = types.KeyboardButton('Friday')
         today_btn = types.KeyboardButton('Today')
         tomorrow_btn = types.KeyboardButton('Tomorrow')
-        nxt_week_btn = types.KeyboardButton('Next week')
+        nxt_week_btn = types.KeyboardButton('Full week')
     markup.row(mon_btn, tue_btn, wed_btn, thu_btn, fri_btn)
     markup.row(today_btn, tomorrow_btn, nxt_week_btn)
     return markup
