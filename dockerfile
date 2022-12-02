@@ -1,9 +1,12 @@
-FROM python:3.7-slim-buster
+# FROM python:3.7-slim-buster
+FROM ubuntu-18.04
 
 WORKDIR /app
 
 ENV API_KEY ${API_KEY}
 
+RUN sudo apt-get update -y
+RUN sudo apt-get install -y python
 
 RUN apt-get update && apt-get install -y locales locales-all
 RUN sed -i -e 's/# uk_UA.UTF-8 UTF-8/uk_UA.UTF-8 UTF-8/' /etc/locale.gen \
