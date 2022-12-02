@@ -9,6 +9,7 @@ RUN sudo apt-get update -y
 RUN sudo apt-get install -y python
 
 RUN apt-get update && apt-get install -y locales locales-all
+RUN sudo apt-get update -y
 RUN sed -i -e 's/# uk_UA.UTF-8 UTF-8/uk_UA.UTF-8 UTF-8/' /etc/locale.gen \
  && locale-gen
 
