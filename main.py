@@ -1,5 +1,6 @@
 import telebot
 import os
+import time
 
 
 from get_time import day_of_week, tomorrow, get_week
@@ -24,25 +25,34 @@ def show_help(message):
 
 @bot.message_handler(regexp=r'^Today$|^Сьогодні$')
 def show_today(message):
-    bot.send_message(message.chat.id, sched.output(day_of_week(), get_week()), 'MarkdownV2', disable_web_page_preview=True)
+    markup = get_markup()
+    bot.send_message(message.chat.id, sched.output(day_of_week(), get_week()), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
 
 @bot.message_handler(regexp=r'^Tomorrow$|^Завтра$')
 def show_tomorrow(message):
-    bot.send_message(message.chat.id, sched.output(tomorrow(), get_week()), 'MarkdownV2', disable_web_page_preview=True)
+    markup = get_markup()
+    bot.send_message(message.chat.id, sched.output(tomorrow(), get_week()), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
 
 @bot.message_handler(func=lambda i: i.text.lower() in local_day_abbr())
 def show_day(message):
+    markup = get_markup()
     date = list.index(local_day_abbr(), message.text.lower())
     if date < day_of_week():
-        bot.send_message(message.chat.id, sched.output(date, (get_week()+1)%2), 'MarkdownV2', disable_web_page_preview=True)
+        bot.send_message(message.chat.id, sched.output(date, (get_week()+1)%2), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
     else:
-        bot.send_message(message.chat.id, sched.output(date, get_week()), 'MarkdownV2', disable_web_page_preview=True)
+        bot.send_message(message.chat.id, sched.output(date, get_week()), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
 
 @bot.message_handler(regexp=r'^Full week$|^Повний тиждень$')
 def show_week(message):
+    markup = get_markup()
     if day_of_week() in range(5, 7):
-        bot.send_message(message.chat.id, 'Наступний тиждень:\n' + sched.output(week=(get_week() + 1) %2), 'MarkdownV2', disable_web_page_preview=True)
+        bot.send_message(message.chat.id, 'Наступний тиждень:\n' + sched.output(week=(get_week() + 1) %2), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
     else:
-        bot.send_message(message.chat.id, 'Залишок цього тижня:\n' + sched.output(week=get_week()), 'MarkdownV2', disable_web_page_preview=True)
+        bot.send_message(message.chat.id, 'Залишок цього тижня:\n' + sched.output(week=get_week()), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
 
-bot.polling()
+while True:
+    try:
+        bot.polling()
+    except Exception:
+        time.sleep(5)
+        continue
