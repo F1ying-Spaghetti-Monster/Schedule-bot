@@ -1,4 +1,5 @@
 from telebot import types
+from localization import local_day_list
 
 from configs import LOCALE
 
@@ -26,3 +27,19 @@ def get_markup():
     markup.row(today_btn, tomorrow_btn, nxt_week_btn)
     return markup
 
+def structure_output(all_lessons: list) -> str:
+    day_names = local_day_list()
+    output = ''
+    cur_day = None
+    for lesson in all_lessons:
+        day, week, time, lesson_name, lesson_type, prof, link, *other = lesson
+        if day != cur_day:
+            output += f'\n{day_names[int(day)]}:\n'
+            cur_day = day
+        time = time.strftime('%H:%M')
+        output += f'{time} {lesson_name} _{lesson_type}_\n     [*Zoom*]({link})\n'
+    return output
+
+if __name__ == '__main__':
+
+    pass

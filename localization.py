@@ -9,7 +9,7 @@ def local_day_abbr():
 
 def local_day_list():
     if LOCALE == 'uk_UA':
-        return ['понеділок', 'вівторок', 'середа', 'четвер', "п'ятниця", 'субота', 'неділя']
+        return ['Понеділок', 'Вівторок', 'Середа', 'Четвер', "П'ятниця", 'Субота', 'Неділя']
     else:
         return list(calendar.day_name)
     
