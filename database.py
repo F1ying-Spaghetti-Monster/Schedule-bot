@@ -23,7 +23,7 @@ def query_week(week: int, cursor) -> list:
 
 
 def verify_user(user_id, cursor):
-    cursor.execute(f'''SELECT EXISTS(SELECT FROM km23_users WHERE user_id = {user_id});''')
+    cursor.execute(f'''SELECT EXISTS(SELECT FROM km23_users WHERE id = {user_id});''')
     return cursor.fetchone()[0]
 
 

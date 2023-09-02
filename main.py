@@ -76,7 +76,7 @@ def show_day(message):
 def show_week(message):
     markup = get_markup()
     if verify_user(message.from_user.id, cursor):
-        if day_of_week() in range(5, 7):
+        if day_of_week() in range(6, 7):
             bot.send_message(message.chat.id, 'Наступний тиждень:\n' + structure_output(query_week((get_week() + 1) %2, cursor)), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
         else:
             bot.send_message(message.chat.id, 'Цей тиждень:\n' + structure_output(query_week(get_week(), cursor)), 'MarkdownV2', disable_web_page_preview=True, reply_markup= markup)
@@ -84,9 +84,11 @@ def show_week(message):
         bot.send_message(message.chat.id, "У Вас немає доступу для користування ботом. Зв'яжіться з адміном якщо це помилка.", reply_markup= markup)
 
 
-while True:
-    try:
-        bot.polling()
-    except Exception:
-        time.sleep(5)
-        continue
+# while True:
+#     try:
+#         bot.polling()
+#     except Exception:
+#         time.sleep(5)
+#         continue
+
+bot.polling()
