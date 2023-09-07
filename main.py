@@ -13,13 +13,6 @@ from database import query_day, query_week, verify_user
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 bot = telebot.TeleBot(BOT_TOKEN)
 
-conn = psycopg2.connect(database=os.environ.get('PGDATABASE'),
-                            host=os.environ.get('PGHOST'),
-                            user=os.environ.get('PGUSER'),
-                            password=os.environ.get('PGPASSWORD'),
-                            port=os.environ.get('PGPORT'))
-
-cursor = conn.cursor()
 
 @bot.message_handler(commands=['start'])
 def show_help(message):
@@ -109,9 +102,17 @@ def show_week(message):
 
 while True:
     try:
+        conn = psycopg2.connect(database=os.environ.get('PGDATABASE'),
+                            host=os.environ.get('PGHOST'),
+                            user=os.environ.get('PGUSER'),
+                            password=os.environ.get('PGPASSWORD'),
+                            port=os.environ.get('PGPORT'))
+        cursor = conn.cursor()
+
         bot.polling()
-    except Exception:
+    except KeyboardInterrupt:
+        break
+    except Exception as e:
+        print(e)
         time.sleep(5)
         continue
-
-# bot.polling()
