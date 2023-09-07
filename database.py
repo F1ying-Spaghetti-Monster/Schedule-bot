@@ -1,6 +1,15 @@
 import psycopg2
 import os
 
+def connect_db():
+    conn = psycopg2.connect(database=os.environ.get('PGDATABASE'),
+                            host=os.environ.get('PGHOST'),
+                            user=os.environ.get('PGUSER'),
+                            password=os.environ.get('PGPASSWORD'),
+                            port=os.environ.get('PGPORT'))
+
+    return conn.cursor()
+
 
 def query_day(weekday: int, week: int, cursor) -> list:
     """returns list of tuples(all lessons) structured:
