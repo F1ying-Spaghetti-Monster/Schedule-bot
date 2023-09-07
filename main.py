@@ -107,11 +107,11 @@ def show_week(message):
         bot.send_message(message.chat.id, "У Вас немає доступу для користування ботом. Зв'яжіться з адміном якщо це помилка.", reply_markup= markup)
 
 
-# while True:
-#     try:
-#         bot.polling()
-#     except Exception:
-#         time.sleep(5)
-#         continue
+while True:
+    try:
+        bot.polling()
+    except Exception:
+        time.sleep(5)
+        continue
 
-bot.polling()
+# bot.polling()
